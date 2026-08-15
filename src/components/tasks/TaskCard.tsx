@@ -44,18 +44,17 @@ export const TaskCard: React.FC<TaskCardProps> = ({
 
   return (
     <div
-      className={`bg-white rounded-2xl border p-5 transition-all shadow-xs hover:shadow-md flex flex-col justify-between space-y-4 ${
+      className={`rounded-2xl p-5 flex flex-col justify-between space-y-4 ${
         isRunning
-          ? "border-emerald-300 ring-2 ring-emerald-500/10 bg-gradient-to-b from-emerald-50/30 to-white"
-          : "border-slate-200/80 hover:border-slate-300"
+          ? "glass-panel-active text-emerald-950"
+          : "glass-panel-interactive text-slate-900"
       }`}
     >
       {/* Top Header & Status Badge */}
       <div className="space-y-2">
         <div className="flex items-center justify-between gap-2">
           {isRunning ? (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700 border border-emerald-300/60">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
               RUNNING
             </span>
           ) : task.status === "done" ? (

@@ -116,16 +116,17 @@ export const TaskList: React.FC<TaskListProps> = ({
           </div>
         </div>
       ) : (
-        /* Task Cards Grid */
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        /* Task Cards Horizontal Carousel on Mobile / 3-Col Grid on Desktop */
+        <div key={activeFilter} className="flex md:grid md:grid-cols-3 gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-3 -mx-4 px-4 md:mx-0 md:px-0 animate-tab-switch">
           {tasks.map((task) => (
-            <TaskCard
-              key={task.id}
-              task={task}
-              onStartTimer={onStartTimer}
-              onStopTimer={onStopTimer}
-              onViewDetails={onViewDetails}
-            />
+            <div key={task.id} className="min-w-[85vw] sm:min-w-0 snap-start shrink-0 sm:shrink">
+              <TaskCard
+                task={task}
+                onStartTimer={onStartTimer}
+                onStopTimer={onStopTimer}
+                onViewDetails={onViewDetails}
+              />
+            </div>
           ))}
         </div>
       )}
