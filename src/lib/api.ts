@@ -179,6 +179,19 @@ export const api = {
     return response;
   },
 
+  // POST /auth/register
+  register: async (userData: { email: string; password: string; name?: string }): Promise<AuthResponse> => {
+    const response = await fetchApi<AuthResponse>("/auth/register", {
+      method: "POST",
+      body: JSON.stringify(userData),
+    });
+    if (response.token) {
+      authStorage.setToken(response.token);
+      authStorage.setUser(response.user);
+    }
+    return response;
+  },
+
   // GET /tasks (?status=open|running|done)
   getTasks: async (status?: string): Promise<Task[]> => {
     const query = status ? `?status=${encodeURIComponent(status)}` : "";
