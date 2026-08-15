@@ -4,8 +4,45 @@ Hi! I'm Om Maheshwari, a Full Stack Developer specializing in building modern ap
 
 Beyond web development, I'm deeply immersed in mastering Data Structures & Algorithms to build a rock-solid foundation in optimized problem-solving. This dual focus helps me write cleaner code and design performance-critical systems.
 
-🔗 **Portfolio**: [https://om-maheshwari.vercel.app/](https://om-maheshwari.vercel.app/)  
-🔗 **Backend Repository**: [Task Tracker Backend Repository](https://github.com/OmMaheshwari/task-tracker-backend) *(Placeholder Link)*
+🔗 **Portfolio**: [https://om-portfolio-green-sigma.vercel.app](https://om-portfolio-green-sigma.vercel.app)  
+🔗 **Frontend Repository**: [https://github.com/OmMaheshwari653/taskTrackerClient.git](https://github.com/OmMaheshwari653/taskTrackerClient.git)  
+🔗 **Backend Repository**: [https://github.com/OmMaheshwari653/task-tracker-backend.git](https://github.com/OmMaheshwari653/task-tracker-backend.git)
+
+---
+
+## 📸 Dashboard Preview
+
+![Task Tracker Light Glassmorphism Dashboard Preview](./public/dashboard-preview.png)
+
+---
+
+## 📂 Client Project Directory Architecture
+
+```
+client/
+├── public/              # Static assets (favicons, dashboard-preview.png, fonts)
+├── src/
+│   ├── app/             # Next.js App Router pages, layout, and global CSS
+│   │   ├── favicon.ico
+│   │   ├── globals.css  # Soft Light Glassmorphism design system & keyframe animations
+│   │   ├── layout.tsx   # Root layout with AuthProvider & global background canvas
+│   │   └── page.tsx     # Main Task Tracker dashboard & authentication view router
+│   ├── components/      # Modular, reusable React UI components
+│   │   ├── auth/        # LoginForm & RegisterForm components with Quick Seed pills
+│   │   ├── layout/      # Header frosted glass top navigation bar
+│   │   ├── tasks/       # TaskList, TaskCard, TodaySummary, RunningTimerBar, Modals
+│   │   └── ui/          # GlassClockWidget (SVG animated clock with rotating hands)
+│   ├── context/         # AuthContext provider for global JWT session management
+│   ├── hooks/           # useLiveTimer custom hook for background-accurate elapsed time
+│   └── lib/             # Typed API client, formatters, & constants
+│       ├── api.ts       # Typed API client interfacing with Express backend
+│       ├── constants.ts # Storage keys & default API URLs
+│       └── formatters.ts# Time duration & date formatting helper functions
+├── .env.example         # Template for client environment variables
+├── Dockerfile           # Standalone Docker build file for Next.js client
+├── package.json         # Client dependencies & scripts
+└── tsconfig.json        # TypeScript compiler configuration
+```
 
 ---
 
@@ -17,20 +54,25 @@ Beyond web development, I'm deeply immersed in mastering Data Structures & Algor
 
 ---
 
-## 📱 2. How to Run Mobile/Client App & Change API Base URL
+## 📱 2. How to Run Mobile/Client App from a Clean Machine
 
-### Step A: Prerequisites
-- Node.js v20+ and npm installed
-- Task Tracker Express Backend running on `http://localhost:8080`
+### Step A: Clone Repository & Change Directory
+```bash
+# 1. Clone client repository from GitHub
+git clone https://github.com/OmMaheshwari653/taskTrackerClient.git
+
+# 2. Change directory into client project
+cd taskTrackerClient
+```
 
 ### Step B: Environment Variable Configuration
 Create a `.env.local` file in the `client` directory (refer to `.env.example`):
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:8080
 ```
-> **Where to change the API base URL**: Modify the `NEXT_PUBLIC_API_URL` variable in `client/.env.local` to point to your deployed or local backend server URL.
+> **Where to change the API base URL**: Modify `NEXT_PUBLIC_API_URL` in `client/.env.local` to point to your deployed or local backend server URL.
 
-### Step C: Install & Run Client App
+### Step C: Install Dependencies & Run Client App
 ```bash
 # 1. Install dependencies
 npm install
@@ -39,6 +81,21 @@ npm install
 npm run dev
 ```
 Open **`http://localhost:3000`** in your browser.
+
+---
+
+## 🐳 Docker Instructions for Client Repository
+
+If you clone only this client repository (`taskTrackerClient`), you can run it with Docker using Dockerfile:
+
+```bash
+# 1. Build Client Docker Image
+docker build -t task-tracker-client .
+
+# 2. Run Client Container (connected to running backend on localhost:8080)
+docker run -p 3000:3000 -e NEXT_PUBLIC_API_URL="http://localhost:8080" task-tracker-client
+```
+The client app will be accessible at `http://localhost:3000`.
 
 ---
 
