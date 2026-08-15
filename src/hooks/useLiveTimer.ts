@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface UseLiveTimerProps {
   startTime: string | null;
@@ -10,8 +10,15 @@ interface UseLiveTimerProps {
 
 export function useLiveTimer({ startTime, isRunning, baseSeconds = 0 }: UseLiveTimerProps) {
   const [elapsedSeconds, setElapsedSeconds] = useState<number>(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    // Clear existing interval immediately to prevent stale timer ticks
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+
     if (!isRunning || !startTime) {
       setElapsedSeconds(0);
       return;
@@ -24,13 +31,13 @@ export function useLiveTimer({ startTime, isRunning, baseSeconds = 0 }: UseLiveT
       setElapsedSeconds(diffSeconds);
     };
 
-    // Calculate immediately on mount / start
+    // Calculate immediately on start
     calculateElapsed();
 
-    // Update every second
-    const interval = setInterval(calculateElapsed, 1000);
+    // Efficiently manage interval ID in ref
+    intervalRef.current = setInterval(calculateElapsed, 1000);
 
-    // Recalculate immediately when tab becomes visible after backgrounding
+    // Re-sync instantly on tab focus
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
         calculateElapsed();
@@ -40,13 +47,19 @@ export function useLiveTimer({ startTime, isRunning, baseSeconds = 0 }: UseLiveT
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
-      clearInterval(interval);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [startTime, isRunning]);
 
+  // Synchronously guard against stale state lag when isRunning toggles to false
+  const activeElapsed = isRunning && startTime ? elapsedSeconds : 0;
+
   return {
-    elapsedSeconds,
-    liveTotalSeconds: isRunning ? baseSeconds + elapsedSeconds : baseSeconds,
+    elapsedSeconds: activeElapsed,
+    liveTotalSeconds: isRunning && startTime ? baseSeconds + activeElapsed : baseSeconds,
   };
 }

@@ -1,64 +1,68 @@
 @import "tailwindcss";
 
 @layer utilities {
-  /* Premium Soft Glass Canvas */
+  /* Subtle Colorful Abstract Mesh Gradient Canvas (Indigo, Cyan, Purple) */
   .glass-canvas {
-    background-color: #F1F5F9;
+    background-color: #F8FAFC;
     background-image: 
-      radial-gradient(at 10% 10%, rgba(224, 231, 255, 0.8) 0px, transparent 40%),
-      radial-gradient(at 90% 10%, rgba(243, 232, 255, 0.7) 0px, transparent 40%),
-      radial-gradient(at 90% 90%, rgba(220, 252, 231, 0.6) 0px, transparent 40%),
-      radial-gradient(at 10% 90%, rgba(238, 242, 255, 0.7) 0px, transparent 40%);
+      radial-gradient(at 0% 0%, rgba(199, 210, 254, 0.7) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(186, 230, 253, 0.7) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(221, 214, 254, 0.6) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(207, 250, 254, 0.6) 0px, transparent 50%);
     background-attachment: fixed;
   }
 
-  /* Authentic Frosted Glass Card */
+  /* Frosted Glass Main Panels */
   .glass-panel {
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 
-      0 10px 30px -5px rgba(31, 38, 135, 0.05),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
-  }
-
-  /* Active Running Glass Panel */
-  .glass-panel-active {
-    background: linear-gradient(135deg, rgba(236, 253, 245, 0.85) 0%, rgba(255, 255, 255, 0.75) 100%);
-    backdrop-filter: blur(20px) saturate(190%);
-    -webkit-backdrop-filter: blur(20px) saturate(190%);
-    border: 1px solid rgba(52, 211, 153, 0.5);
-    box-shadow: 
-      0 12px 36px -8px rgba(16, 185, 129, 0.12),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
-  }
-
-  /* Interactive Hover Glass Card */
-  .glass-panel-interactive {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.75);
-    box-shadow: 0 4px 16px -2px rgba(31, 38, 135, 0.04);
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
+  }
+
+  /* Active Running Task Banner Panel */
+  .glass-panel-active {
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(20px) saturate(190%);
+    -webkit-backdrop-filter: blur(20px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.7);
+  }
+
+  /* Frosted Glass Interactive Cards */
+  .glass-panel-interactive {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .glass-panel-interactive:hover {
-    background: rgba(255, 255, 255, 0.9);
-    border-color: rgba(255, 255, 255, 1);
+    background: rgba(255, 255, 255, 0.45);
+    border-color: rgba(255, 255, 255, 0.6);
     transform: translateY(-2px);
-    box-shadow: 0 16px 36px -8px rgba(31, 38, 135, 0.09);
   }
 
-  /* Subtle Stop Button Pulse Animation */
-  .pulse-red-glow {
-    animation: pulse-red-ring 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  /* Frosted Glass Red Stop Button */
+  .glass-red-button {
+    background: rgba(239, 68, 68, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .glass-red-button:hover {
+    background: rgba(220, 38, 38, 0.95);
   }
 
   /* Tab Transition Animation */
   .animate-tab-switch {
-    animation: tabFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: tabFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   /* Hide Scrollbar Utility */
@@ -71,19 +75,10 @@
   }
 }
 
-@keyframes pulse-red-ring {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4), 0 10px 25px -5px rgba(239, 68, 68, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 0 8px rgba(239, 68, 68, 0), 0 12px 28px -4px rgba(239, 68, 68, 0.45);
-  }
-}
-
 @keyframes tabFadeIn {
   from {
     opacity: 0;
-    transform: translateY(6px) scale(0.99);
+    transform: translateY(4px) scale(0.99);
   }
   to {
     opacity: 1;

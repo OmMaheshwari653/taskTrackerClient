@@ -67,24 +67,82 @@ export default function Home() {
     }
   }, [isAuthenticated, fetchDashboardData]);
 
-  // Timer Start Handler (Enforces Single-Timer Rule atomically)
+  // Optimistic Timer Start Handler (0ms instant UI state update)
   const handleStartTimer = async (taskId: number) => {
     setNetworkError(null);
+    const nowIso = new Date().toISOString();
+    const previousTasks = [...tasks];
+    const previousSummary = summary;
+
+    const targetTask = tasks.find((t) => t.id === taskId);
+    if (!targetTask) return;
+
+    // Instant local state mutation
+    setTasks((prevTasks) =>
+      prevTasks.map((t) => {
+        if (t.id === taskId) {
+          return { ...t, isRunning: true, status: "running", runningSince: nowIso };
+        }
+        if (t.isRunning || t.status === "running") {
+          return { ...t, isRunning: false, status: "open", runningSince: null };
+        }
+        return t;
+      })
+    );
+
+    if (summary) {
+      setSummary({
+        ...summary,
+        runningTask: {
+          id: targetTask.id,
+          title: targetTask.title,
+          description: targetTask.description,
+          status: "running",
+          startTime: nowIso,
+          elapsedSeconds: 0,
+        },
+      });
+    }
+
     try {
       await api.startTaskTimer(taskId);
       await fetchDashboardData(true);
     } catch (err: any) {
+      setTasks(previousTasks);
+      setSummary(previousSummary);
       setNetworkError(err.message || "Failed to start timer");
     }
   };
 
-  // Timer Stop Handler
+  // Optimistic Timer Stop Handler (0ms instant UI state update)
   const handleStopTimer = async (taskId: number) => {
     setNetworkError(null);
+    const previousTasks = [...tasks];
+    const previousSummary = summary;
+
+    // Instant local state mutation
+    setTasks((prevTasks) =>
+      prevTasks.map((t) => {
+        if (t.id === taskId) {
+          return { ...t, isRunning: false, status: "open", runningSince: null };
+        }
+        return t;
+      })
+    );
+
+    if (summary) {
+      setSummary({
+        ...summary,
+        runningTask: null,
+      });
+    }
+
     try {
       await api.stopTaskTimer(taskId);
       await fetchDashboardData(true);
     } catch (err: any) {
+      setTasks(previousTasks);
+      setSummary(previousSummary);
       setNetworkError(err.message || "Failed to stop timer");
     }
   };
@@ -107,14 +165,14 @@ export default function Home() {
 
   // Filter Tasks locally
   const filteredTasks = tasks.filter((t) => {
-    if (activeFilter === "running") return t.isRunning || t.status === "running";
+    if (activeFilter === "running") return Boolean(t.isRunning && t.status === "running");
     if (activeFilter === "open") return t.status === "open" && !t.isRunning;
     if (activeFilter === "done") return t.status === "done";
     return true;
   });
 
   // Find currently running task
-  const runningTask = tasks.find((t) => t.isRunning || t.status === "running") || null;
+  const runningTask = tasks.find((t) => Boolean(t.isRunning && t.status === "running")) || null;
 
   // Quick Seed User Switching Handler
   const handleSwitchAccount = async (email: string) => {
@@ -192,8 +250,8 @@ export default function Home() {
         isRefreshing={refreshing}
       />
 
-      {/* Main Asymmetric Layout Body */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+      {/* Main Layout Body */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 space-y-6 overflow-x-hidden">
         {/* Network Error Toast / Banner (PDF Requirement) */}
         {networkError && (
           <div className="bg-red-50 border border-red-200 text-red-700 text-xs p-4 rounded-2xl flex items-center justify-between gap-3 shadow-xs">
@@ -213,7 +271,7 @@ export default function Home() {
         )}
 
         {/* Unified Soft Glassmorphism Dashboard Layout */}
-        <div className="space-y-6">
+        <div className="space-y-6 w-full max-w-full">
           {/* 1. Global Active Running Timer Clock Hero Banner */}
           <RunningTimerBar
             runningTask={runningTask}
@@ -228,7 +286,7 @@ export default function Home() {
           />
 
           {/* 3. Main Task Stream Section (All Tasks) */}
-          <div className="glass-panel rounded-3xl p-6 shadow-xs space-y-6">
+          <div className="glass-panel rounded-3xl p-4 sm:p-6 shadow-xs space-y-6 w-full max-w-full overflow-hidden">
             <TaskList
               tasks={filteredTasks}
               loading={loadingData}

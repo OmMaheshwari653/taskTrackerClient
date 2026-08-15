@@ -79,7 +79,7 @@ export const GlassClockWidget: React.FC<GlassClockWidgetProps> = ({
         />
 
         {/* Glass Face Dial */}
-        <div className="relative z-10 w-full h-full rounded-full bg-white backdrop-blur-md border border-slate-200 shadow-md flex items-center justify-center overflow-hidden">
+        <div className="relative z-10 w-full h-full rounded-full bg-white/70 backdrop-blur-md border border-white/80 shadow-md flex items-center justify-center overflow-hidden">
           <svg
             width={dimensionPx}
             height={dimensionPx}

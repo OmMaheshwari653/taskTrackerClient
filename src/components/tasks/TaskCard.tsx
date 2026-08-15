@@ -20,7 +20,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
-  const isRunning = task.isRunning || task.status === "running";
+  const isRunning = Boolean(task.isRunning && task.status === "running");
   const startTime = task.runningSince || null;
 
   const { liveTotalSeconds } = useLiveTimer({

@@ -37,38 +37,21 @@ export const RunningTimerBar: React.FC<RunningTimerBarProps> = ({
   };
 
   return (
-    <div className="glass-panel-active rounded-3xl p-6 mb-6 flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-300 relative overflow-hidden">
-      {/* Background Subtle Glow Accent */}
-      <div className="absolute -right-10 -top-10 w-56 h-56 bg-emerald-400/15 rounded-full blur-3xl pointer-events-none" />
-
-      {/* Left: Task Meta Info */}
-      <div className="flex items-start gap-4 min-w-0 w-full md:w-auto flex-1 z-10">
-        <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-md shadow-emerald-600/20 shrink-0 font-bold">
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-        </div>
-
-        <div className="min-w-0 space-y-1.5 flex-1">
-          <div className="flex items-center gap-2">
-            {/* High-Contrast Dark Green Badge */}
-            <span className="px-3 py-0.5 rounded-full text-[11px] font-black tracking-wider uppercase bg-emerald-950/90 text-emerald-300 border border-emerald-400/40 shadow-xs">
-              Active Task Clock
-            </span>
-          </div>
-          <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 break-words line-clamp-2 leading-tight">
-            {runningTask.title}
-          </h3>
-          {runningTask.description && (
-            <p className="text-xs text-slate-600 line-clamp-1 leading-relaxed">
-              {runningTask.description}
-            </p>
-          )}
-        </div>
+    <div className="glass-panel-active rounded-3xl p-5 sm:p-6 mb-6 flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-300 relative overflow-hidden">
+      {/* Task Info */}
+      <div className="min-w-0 w-full md:w-auto flex-1 space-y-1.5 text-center md:text-left z-10">
+        <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 break-words line-clamp-2 leading-tight">
+          {runningTask.title}
+        </h3>
+        {runningTask.description && (
+          <p className="text-xs text-slate-700 line-clamp-2 leading-relaxed">
+            {runningTask.description}
+          </p>
+        )}
       </div>
 
-      {/* Center: Live Glass Clock Widget */}
-      <div className="z-10 shrink-0 py-1 sm:py-0">
+      {/* Live Analog Clock Widget */}
+      <div className="z-10 shrink-0 p-1 sm:p-2">
         <GlassClockWidget
           totalSeconds={liveTotalSeconds}
           isRunning={true}
@@ -77,13 +60,13 @@ export const RunningTimerBar: React.FC<RunningTimerBarProps> = ({
         />
       </div>
 
-      {/* Right: Stop Action Control with Subtle Pulse Glow */}
-      <div className="z-10 w-full md:w-auto flex items-center justify-center md:justify-end border-t md:border-t-0 border-emerald-200/60 pt-4 md:pt-0">
+      {/* Frosted Translucent Red Stop Button */}
+      <div className="z-10 w-full md:w-auto flex items-center justify-center md:justify-end border-t md:border-t-0 border-white/30 pt-4 md:pt-0">
         <button
           type="button"
           onClick={handleStop}
           disabled={stopping}
-          className="w-full md:w-auto px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-2xl pulse-red-glow transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2.5 disabled:opacity-60"
+          className="w-full md:w-auto glass-red-button px-6 py-3 text-xs rounded-2xl transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2.5 disabled:opacity-60"
         >
           {stopping ? (
             <>
