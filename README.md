@@ -4,6 +4,8 @@ Hi! I'm Om Maheshwari, a Full Stack Developer specializing in building modern ap
 
 Beyond web development, I'm deeply immersed in mastering Data Structures & Algorithms to build a rock-solid foundation in optimized problem-solving. This dual focus helps me write cleaner code and design performance-critical systems.
 
+🌐 **Live Client App (Vercel)**: [https://task-tracker-client-xi.vercel.app](https://task-tracker-client-xi.vercel.app)  
+🌐 **Live Server API (Render)**: [https://task-tracker-backend-377j.onrender.com](https://task-tracker-backend-377j.onrender.com)  
 🔗 **Portfolio**: [https://om-portfolio-green-sigma.vercel.app](https://om-portfolio-green-sigma.vercel.app)  
 🔗 **Frontend Repository**: [https://github.com/OmMaheshwari653/taskTrackerClient.git](https://github.com/OmMaheshwari653/taskTrackerClient.git)  
 🔗 **Backend Repository**: [https://github.com/OmMaheshwari653/task-tracker-backend.git](https://github.com/OmMaheshwari653/task-tracker-backend.git)
