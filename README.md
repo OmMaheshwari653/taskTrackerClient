@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Task Tracker Client Application
 
-## Getting Started
+Hi! I'm Om Maheshwari, a Full Stack Developer specializing in building modern applications with Next.js, React, Node.js, Express, MongoDB and PostgreSQL. I craft efficient, scalable solutions that bridge ideas and reality.
 
-First, run the development server:
+Beyond web development, I'm deeply immersed in mastering Data Structures & Algorithms to build a rock-solid foundation in optimized problem-solving. This dual focus helps me write cleaner code and design performance-critical systems.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+🔗 **Portfolio**: [https://om-maheshwari.vercel.app/](https://om-maheshwari.vercel.app/)  
+🔗 **Backend Repository**: [Task Tracker Backend Repository](https://github.com/OmMaheshwari/task-tracker-backend) *(Placeholder Link)*
+
+---
+
+## 🎨 Design System & Framework Choice
+- **Framework**: **Next.js (App Router v16)**. Approved as a web client alternative to React Native CLI.
+- **Styling & Aesthetics**: Custom **Soft Light Glassmorphism UI** using Vanilla CSS utilities (`globals.css`) + Tailwind CSS v4. Features translucent frosted glass panels (`backdrop-blur-md`), ambient colorful mesh canvas background, animated SVG analog clock widget with rotating hands, and responsive layouts.
+- **Timer Accuracy**: Custom `useLiveTimer` hook calculates elapsed time dynamically from `Date.now() - new Date(startTime).getTime()`, with automatic `visibilitychange` focus re-syncing so the timer remains 100% accurate when backgrounded and reopened.
+- **Optimistic UI Updates**: 0ms UI latency when starting/stopping timers or creating tasks.
+
+---
+
+## 📱 2. How to Run Mobile/Client App & Change API Base URL
+
+### Step A: Prerequisites
+- Node.js v20+ and npm installed
+- Task Tracker Express Backend running on `http://localhost:8080`
+
+### Step B: Environment Variable Configuration
+Create a `.env.local` file in the `client` directory (refer to `.env.example`):
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8080
 ```
+> **Where to change the API base URL**: Modify the `NEXT_PUBLIC_API_URL` variable in `client/.env.local` to point to your deployed or local backend server URL.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Step C: Install & Run Client App
+```bash
+# 1. Install dependencies
+npm install
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# 2. Start Next.js Development Server
+npm run dev
+```
+Open **`http://localhost:3000`** in your browser.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 💡 Why Redux Was NOT Used
+- **No Unnecessary Overhead**: Redux adds heavy boilerplate, serializable state restrictions, and store subscription latency for simple CRUD/timer states.
+- **Native Efficiency**: Native React `useState`, `useContext` (`AuthContext`), custom hooks (`useLiveTimer`), and typed API client (`src/lib/api.ts`) provide 0ms latency, zero boilerplate overhead, and direct Optimistic UI updates.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔑 3. Login Details for Test Users
+Password for all test users: **`password123`**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `alex@example.com`
+- `sarah@example.com`
+- `dev@example.com`
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ⏳ 6. Time Spent
+- Roughly **8 hours** total across full-stack development, UI polish, testing, and documentation.
